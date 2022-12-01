@@ -3,9 +3,7 @@ import { INote } from '../content/Content';
 import uuid from 'react-uuid';
 import { useDispatch } from 'react-redux';
 import { toggleEdit } from '../../store/slices/popupSlice';
-import { addNote, setActiveNote } from '../../store/slices/notesSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+import { setActiveNote } from '../../store/slices/notesSlice';
 
 export const AddCart = (): JSX.Element => {
 
