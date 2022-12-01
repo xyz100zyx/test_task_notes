@@ -11,7 +11,8 @@ module.exports = {
       'black': "#000000",
       'pink': "#ffdada",
       'blue': "#3c2b84",
-      'white': '#ffffff'
+      'white': '#ffffff',
+      'red': '#c20f02',
     },
     fontFamily: {
       jakarta: ["Plus Jakarta Sans", "sans-serif"],

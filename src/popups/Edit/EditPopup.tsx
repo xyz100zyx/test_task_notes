@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import {INote} from "../../components/content/Content";
-import { addNote, changeNote, setActiveNote } from '../../store/slices/notesSlice';
+import { addNote, changeNote, removeNote, setActiveNote } from '../../store/slices/notesSlice';
 import { toggleEdit } from '../../store/slices/popupSlice';
 import { RootState } from '../../store/store';
 import { checkNewNote } from '../../utils/checkNewNote';
@@ -13,7 +13,7 @@ export const EditPopup = (note: INote): JSX.Element => {
     const baseModalStyles = ` p-8 max-w-popup w-full drop-shadow-xl rounded-cart z-1000 opacity-100`;
     const baseCircleStyles = ' block w-8 max-w-color max-h-color min-h-color h-8 rounded-full cursor-pointer';
     const baseInputStyles = `py-1 px-2 outline-none block w-full rounded-input `
-    const baseBtnStyles = `py-1 w-full border-none bg-black text-white`
+    const baseBtnStyles = `py-1 w-full border-none text-white`
 
     const colors = new Map<string, string>([
         ['yellow', '#FFA901'],
@@ -54,6 +54,13 @@ export const EditPopup = (note: INote): JSX.Element => {
                 tags: getTagsFromString(title + " " + text),
             }))
         }
+        dispatch(setActiveNote(null));
+        dispatch(toggleEdit(false));
+    }
+
+    const onDeleteBtnClick = () => {
+        dispatch(removeNote(note));
+        dispatch(setActiveNote(null));
         dispatch(toggleEdit(false));
     }
 
@@ -89,7 +96,8 @@ export const EditPopup = (note: INote): JSX.Element => {
                 </ul>
                 <input placeholder={'Title'} type={'text'} value={title} onChange={(e: React.FormEvent<HTMLInputElement>) => onTitleChange(e.currentTarget.value)} className={baseInputStyles + "mb-2 text-input-title tracking-input-title leading-input-title"} />
                 <textarea placeholder={'Text'} value={text} onChange={(e: React.FormEvent<HTMLTextAreaElement>) => onTextChange(e.currentTarget.value)} className={baseInputStyles + "mb-9 text-input-text tracking-input-text leading-input-text pb-44"}/>
-                <button className={baseBtnStyles} onClick={() => onSaveBtnClick()}>Save</button>
+                <button className={baseBtnStyles + " bg-black"} onClick={() => onSaveBtnClick()}>Save</button>
+                <button className={baseBtnStyles + " bg-red mt-2"} onClick={() => onDeleteBtnClick()}>Delete</button>
             </div>
         </div>
     )
